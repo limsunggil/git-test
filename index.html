@@ -7,16 +7,207 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>Test Page</title>
+
+    <script src="./jquery.js"></script>
+    <script>
+	$(document).ready(function() {
+		getCallList("start");
+	});
+
+	function getCallList(status) {
+		var data = {site:"sera.bodot.kr"};
+		deferred = $.post("http://bodot.kr/admin/onCallList", data);
+		deferred.success(function(result) {
+			//console.log(result);
+            //console.log("test 필요 !!!");
+		});
+		deferred.error(function(error) {
+			console.log(result);
+		});
+	}
+
+    /*
+    기존의 자바스크립트는 var 키워드는 변수나 상수를 자유롭게 설정
+    ES6에서는 상수와 변수를 구분할 수 있는 키워드를 추가함. 
+    기존 var 키워드의 일반적인 값은 let 키워드로 정의하면 되고, 
+    변경되지 않을 상수는 const 키워드로 정의하면 된다.
+    */
+    if(true) {
+        var varVariable = 1;
+        let letVariable = 2;
+    } 
+    console.log(varVariable);
+    //console.log(letVariable);
+    
+    const hello_text = "hello";
+    console.log(hello_text);
+    //hello_text = "world";
+
+    /*
+    for-of 문은 이터러블 오브젝트를 반복하여 처리한다.
+    */
+    for(var value of [10, 20, 30]) {
+        console.log(value);
+    }
+
+    for(var value of "ABC") {
+        console.log(value);
+    }
+
+    let values = [
+        {item: "선물1", amount: {apple: 10, candy: 20}},
+        {item: "선물2", amount: {apple: 30, candy: 40}}
+    ];
+    for (var {item: one, amount: {apple: two, candy: five}} of values) {
+        console.log(one, two, five);
+    }
+
+    values = [10, 20, 30];
+    Array.prototype.music = function() {
+        return "음악";
+    };
+    Object.prototype.sports = function() {
+        return "스포츠";
+    };
+    for (var key in values) {
+        console.log(key, values[key]);
+    }   
+
+    /*
+    isInteger() : 정수 여부
+    */
+    console.log(Number.isInteger(0));
+    console.log(Number.isInteger(1.0));
+    console.log(Number.isInteger(-123));
+    console.log(Number.isInteger("12"));
+    console.log(Number.isInteger(1.02));
+
+    /*
+    fromCodePoint() : 코드 포인트 문자 반환
+    codePointAt() : 코드 포인트 값 반환
+    */
+    console.log(String.fromCodePoint(44032, 44033));
+    console.log("가".codePointAt(0), "각".codePointAt(0));
+
+    values = "ABC";
+    for (var value of values) {
+        console.log(value, value.codePointAt(0));
+    }
+
+    /*
+    includes() : 문자열 포함 여부
+    startsWith() : 문자열 시작 여부
+    endsWith() : 문자열 종료 여부
+    repeat() : 문자열 복제
+    */
+    let target = "123가나다";
+    console.log("string : " + target.includes("가나"));
+    console.log("string : " + target.includes("다라"));
+    console.log("string : " + target.startsWith("23"));
+    console.log("string : " + target.startsWith("가나", 3));
+    console.log("string : " + target.endsWith("가나다"));
+    console.log("string : " + target.endsWith("가나"));
+    console.log("string : " + target.endsWith("가나", 5));
+    console.log("string : " + target.repeat(3));
+
+    /*
+    fill() : 범위 값 변경
+    */
+    let fill1 = [1, 2, 3, 4, 5];
+    console.log(fill1.fill(7));
+    let fill2 = [1, 2, 3, 4, 5];
+    console.log(fill2.fill(7, 1));
+    let fill3 = [1, 2, 3, 4, 5];
+    console.log(fill3.fill(7, 1, 3));
+
+    /*
+    class
+    클래스에 getter와 setter를 선언할 수 있다. 
+    메서드 이름 앞에 "get"을 작성하면 getter가 되고 "set"을 작성하면 setter가 됨.
+    */
+    class Member {
+        set setName(name) {
+            this.name = name;
+        }
+        get getName() {
+            return this.name;
+        }
+    };
+    let memberObj1 = new Member();
+    memberObj1.setName = "키위";
+    let memberObj2 = new Member();
+    memberObj2.setName = "웍스";    
+    console.log(memberObj1.getName);
+    console.log(memberObj2.getName);
+
+    class Sports {
+        static setGround(ground) {
+            this.ground = ground;
+        }
+        static getGround() {
+            return this.ground;
+        }
+    };
+    Sports.setGround("상암구장");
+    console.log(Sports.getGround());
+
+    /*
+    new Set() : Set 인스턴스 생성
+    */
+    const newSet = new Set([1, 2, 1, 2, "스포츠"]);
+    console.log(newSet);
+    console.log(newSet.size);
+    newSet.add("축구").add("농구");
+    console.log(newSet);
+    console.log(newSet.has("sports"));
+    console.log(newSet.has("스포츠"));
+    newSet.delete("축구");
+    console.log(newSet);
+    newSet.clear();
+    console.log(newSet);
+
+    /*
+    Arrow Function 
+    */
+    let myFunc = () => console.log("This is a new function literal");
+    myFunc();
+    function myFuncES5() {
+        console.log("This is a old function literal");
+    };
+    myFuncES5();
+    
+    let paramFunc = (greetings, name) => {
+        console.log(greetings + ", " + name);
+    }
+    paramFunc("Hello", "World");
+    function paramFuncES5(greetings, name) {
+        console.log(greetings + ", " + name);
+    }
+    paramFuncES5("Hello", "World");
+
+    var name = "Global";
+    function Person() {
+        this.name = "Unikys";
+        setTimeout(() => console.log(this.name), 100);
+        
+        setTimeout(function() {
+            console.log(this.name);
+        }, 100);
+    }
+    var person = new Person();
+    //yield
+    </script>    
 </head>
 
 <body>
 	<h1>HELLO WORLD</h1>
     <h1>GIT TEST</h1>
+    <h1>ES6 TEST</h1>
+
     <ul>
-        <li>test1</li>
-        <li>test2</li>
-        <li>test3</li>
-        <li>test4</li>
-    </ul>
+        <li>첫 번째</li>
+        <li>두 번째</li>
+        <li>세 번째</li>
+    </ul>     
 </body>
 </html>
